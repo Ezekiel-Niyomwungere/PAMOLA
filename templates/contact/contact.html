@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | PAMOLA Agribusiness{% endblock %}
+
+{% block content %}
+
+<section class="contact-hero">
+    <div class="container">
+        <h1>Get in Touch With PAMOLA</h1>
+        <p class="contact-intro">
+            Whether you want to learn more about our products, partner with us or support
+            our mission, we would love to hear from you as we create value and grow together.
+        </p>
+    </div>
+</section>
+
+<section class="contact-main">
+    <div class="container contact-grid">
+
+        <aside class="contact-info">
+
+            <div class="info-card">
+                <h2><span class="info-icon" aria-hidden="true">📍</span> Location</h2>
+                <table class="info-table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td>Burundi</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Province</th>
+                            <td>Bujumbura</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">City</th>
+                            <td>Bujumbura City</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Area</th>
+                            <td>Ruziba</td>
+                        </tr>
+                        <tr>
+                         <th scope="row">Physical address</th>
+                            <td>Not available currently</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="info-note">
+                    Our office is located in the Ruziba area of Bujumbura.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h2><span class="info-icon" aria-hidden="true">📞</span> Phone</h2>
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-label">Main phone</span>
+                        <a href="tel:+254719541878">+254 719 541 878</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">WhatsApp</span>
+                        <a href="https://wa.me/254701403101" target="_blank" rel="noopener noreferrer">
+                            +254 701 403 101
+                        </a>
+                    </li>
+                </ul>
+                <p class="info-note">
+                    Reach us by phone during working hours, or message us on WhatsApp at any time.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h2><span class="info-icon" aria-hidden="true">📧</span> Email</h2>
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-label">General inquiries</span>
+                        <a href="mailto:pamolaenquiries@gmail.com">pamolaenquiries@gmail.com</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Business / partnerships</span>
+                        <a href="mailto:pamolapartnership@gmail.com">pamolapartnership@gmail.com</a>
+                    </li>
+                </ul>
+                <p class="info-note">
+                    For partnership and business proposals, please use the partnerships email
+                    or select "Partnership" in the form below.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h2><span class="info-icon" aria-hidden="true">🕐</span> Working Hours</h2>
+                <ul class="hours-list">
+                    <li><span>Monday – Friday</span><span>8:00 AM – 5:00 PM</span></li>
+                    <li><span>Saturday</span><span>9:00 AM – 1:00 PM</span></li>
+                    <li class="hours-closed"><span>Sunday</span><span>Closed</span></li>
+                </ul>
+                <p class="info-note">
+                    All times are in East Africa Time (EAT). We aim to respond to inquiries
+                    within 1–2 business days.
+                </p>
+            </div>
+
+        </aside>
+
+        <div class="contact-form-section">
+            <div class="form-card">
+                <h2><span class="info-icon" aria-hidden="true">📝</span> Send Us a Message</h2>
+                <p class="form-lead">
+                    Fill out the form below and our team will review your inquiry promptly.
+                </p>
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-error" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form method="post" action="{% url 'contact:contact' %}" class="contact-form" novalidate>
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="{{ form.full_name.id_for_label }}">Full Name <span class="required">*</span></label>
+                        {{ form.full_name }}
+                        {% if form.full_name.errors %}
+                            <p class="field-error">{{ form.full_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Email Address <span class="required">*</span></label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <p class="field-error">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="{{ form.phone_number.id_for_label }}">Phone Number (optional)</label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.errors %}
+                                <p class="field-error">{{ form.phone_number.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.organization.id_for_label }}">Organization (optional)</label>
+                            {{ form.organization }}
+                            {% if form.organization.errors %}
+                                <p class="field-error">{{ form.organization.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.inquiry_type.id_for_label }}">Inquiry Type <span class="required">*</span></label>
+                        {{ form.inquiry_type }}
+                        {% if form.inquiry_type.errors %}
+                            <p class="field-error">{{ form.inquiry_type.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.message.id_for_label }}">Message <span class="required">*</span></label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                            <p class="field-error">{{ form.message.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <p class="form-privacy">
+                        By submitting this form, you agree that PAMOLA may use your details to
+                        respond to your inquiry. We do not share your information with third parties.
+                    </p>
+
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
